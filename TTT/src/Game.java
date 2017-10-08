@@ -41,7 +41,7 @@ public class Game extends JFrame
 	boolean whosTurn = true; //true = player1, false = player2
 	int[][] locations = {{WIDTH/10, HEIGHT/10}, {3*WIDTH/10, HEIGHT/10}, {5*WIDTH/10, HEIGHT/10}, {WIDTH/10, 3*HEIGHT/10}, {3*WIDTH/10, 3*HEIGHT/10}, {5*WIDTH/10, 3*HEIGHT/10}, {WIDTH/10, 5*HEIGHT/10}, {3*WIDTH/10, 5*HEIGHT/10}, {5*WIDTH/10, 5*HEIGHT/10}, {10, 10}, {10, 8*HEIGHT/10}, {8*WIDTH/10, 8*HEIGHT/10}};
 	
-	public Game() //more code
+	public Game()
 	{
 		setSize(WIDTH, HEIGHT);
 		setTitle("Tic Tac Toe");
