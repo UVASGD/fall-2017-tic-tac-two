@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 
 public class Game extends JFrame
 {
+	final int WIDTH = 1000;
+	final int HEIGHT = 1000;
+	
 	JButton b1 = new JButton();
 	JButton b2 = new JButton();
 	JButton b3 = new JButton();
@@ -36,11 +39,11 @@ public class Game extends JFrame
 	String activePlayer = "Player 1";
 	int[] values = new int[9]; //0 means no value- 1 means player1, -1 means player2
 	boolean whosTurn = true; //true = player1, false = player2
-	int[][] locations = {{100, 100}, {300, 100}, {500, 100}, {100, 300}, {300, 300}, {500, 300}, {100, 500}, {300, 500}, {500, 500}, {10, 10}, {10, 800}, {800, 800}};
+	int[][] locations = {{WIDTH/10, HEIGHT/10}, {3*WIDTH/10, HEIGHT/10}, {5*WIDTH/10, HEIGHT/10}, {WIDTH/10, 3*HEIGHT/10}, {3*WIDTH/10, 3*HEIGHT/10}, {5*WIDTH/10, 3*HEIGHT/10}, {WIDTH/10, 5*HEIGHT/10}, {3*WIDTH/10, 5*HEIGHT/10}, {5*WIDTH/10, 5*HEIGHT/10}, {10, 10}, {10, 8*HEIGHT/10}, {8*WIDTH/10, 8*HEIGHT/10}};
 	
 	public Game()
 	{
-		setSize(1000, 1000);
+		setSize(WIDTH, HEIGHT);
 		setTitle("Tic Tac Toe");
 		addObjects();
 		addActions();
