@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -29,17 +30,22 @@ public class Game extends JFrame
 	JTextArea a9 = new JTextArea();
 	JTextArea[] texts = {a1, a2, a3, a4, a5, a6, a7, a8, a9};
 	
-	JButton endTurn = new JButton("End Turn");
+	JButton btnAI = new JButton("AI Settings");
 	JButton restart = new JButton("Restart");
 	
 	JTextArea turn = new JTextArea();
 	JTextArea winner = new JTextArea();
+	JTextArea settingsAI = new JTextArea("AI: Player 2");
+	
+	int computerPlayer = -1;
+	
+	boolean gamesOver = false;
 	
 	int turns = 0;
 	String activePlayer = "Player 1";
 	int[] values = new int[9]; //0 means no value- 1 means player1, -1 means player2
 	boolean whosTurn = true; //true = player1, false = player2
-	int[][] locations = {{WIDTH/10, HEIGHT/10}, {3*WIDTH/10, HEIGHT/10}, {5*WIDTH/10, HEIGHT/10}, {WIDTH/10, 3*HEIGHT/10}, {3*WIDTH/10, 3*HEIGHT/10}, {5*WIDTH/10, 3*HEIGHT/10}, {WIDTH/10, 5*HEIGHT/10}, {3*WIDTH/10, 5*HEIGHT/10}, {5*WIDTH/10, 5*HEIGHT/10}, {10, 10}, {10, 8*HEIGHT/10}, {8*WIDTH/10, 8*HEIGHT/10}};
+	int[][] locations = {{WIDTH/10, HEIGHT/10}, {3*WIDTH/10, HEIGHT/10}, {5*WIDTH/10, HEIGHT/10}, {WIDTH/10, 3*HEIGHT/10}, {3*WIDTH/10, 3*HEIGHT/10}, {5*WIDTH/10, 3*HEIGHT/10}, {WIDTH/10, 5*HEIGHT/10}, {3*WIDTH/10, 5*HEIGHT/10}, {5*WIDTH/10, 5*HEIGHT/10}, {10, 10}, {10, 8*HEIGHT/10}, {8*WIDTH/10, 8*HEIGHT/10}, {6*WIDTH/10,8*HEIGHT/10}, {7*WIDTH/10,HEIGHT/10}};
 	
 	public Game() //more code
 	{
@@ -64,8 +70,9 @@ public class Game extends JFrame
 		drop(75, 300, locations[10], true, winner);
 		winner.setEditable(false);
 		winner.setText("No winner yet!");
-		drop(75, 75, locations[11], true, endTurn);
 		drop(75, 75, locations[11], false, restart);
+		drop(75, 100, locations[12], true, btnAI);
+		drop(75, 125, locations[13], true, settingsAI);
 		
 		JLabel l = new JLabel(); //for some reason, adding a stupid label makes it all come together.
 		add(l);
@@ -103,6 +110,9 @@ public class Game extends JFrame
 		restart.addActionListener((ActionEvent event)->{
 			restart();
 		});
+		btnAI.addActionListener((ActionEvent event)->{
+			setAI();
+		});
 	}
 	
 	public void buttonPress(JButton b, int index)
@@ -120,20 +130,38 @@ public class Game extends JFrame
 				values[index] = -1;
 			}
 			turns++;
-			turn.setText("Current Player: " + activePlayer);
 			if (turns == 9)
 			{
 				testWinConditions(true);
 			}
 			testWinConditions(false);
-			if (activePlayer.equals("Player 1"))
+			if(!gamesOver)
 			{
-				activePlayer = "Player 2";
+				if (activePlayer.equals("Player 1"))
+				{
+					activePlayer = "Player 2";
+				}
+				else
+				{
+					activePlayer = "Player 1";
+				}
+				turn.setText("Current Player: " + activePlayer);
+				checkAITurn();
+				btnAI.setVisible(false);
 			}
-			else
-			{
-				activePlayer = "Player 1";
-			}
+		}
+	}
+	
+	public void AITurn()
+	{
+		int randomSpace = (int) (Math.random() * 9); //random integer from 0 to 8
+		if (!buttons[randomSpace].getText().equals("X") && !buttons[randomSpace].getText().equals("O")) //space is unoccupied
+		{
+			buttonPress(buttons[randomSpace], randomSpace);
+		}
+		else
+		{
+			AITurn();
 		}
 	}
 	
@@ -200,7 +228,8 @@ public class Game extends JFrame
 		{
 			buttons[i].setEnabled(false);
 		}
-		endTurn.setVisible(false);
+		gamesOver = true;
+		btnAI.setVisible(true);
 		restart.setVisible(true);
 	}
 	
@@ -215,8 +244,42 @@ public class Game extends JFrame
 			activePlayer = "Player 1";
 			turn.setText("Current Player: " + activePlayer);
 		}
-		endTurn.setVisible(true);
+		gamesOver = false;
 		restart.setVisible(false);
+		checkAITurn();
+	}
+	
+	public void setAI()
+	{
+		String input = JOptionPane.showInputDialog("How should the AI be set?\n0: No AI\n-1: AI is Player 2\n1: AI is Player 1");
+		computerPlayer = Integer.parseInt(input);
+		String AISet = "";
+		if (computerPlayer == 0)
+		{
+			AISet = "off";
+		}
+		else if (computerPlayer == 1)
+		{
+			AISet = "Player 1";
+		}
+		else
+		{
+			AISet = "Player 2";
+		}
+		settingsAI.setText("AI: " + AISet);
+		checkAITurn();
+	}
+	
+	public void checkAITurn()
+	{
+		if (computerPlayer == 1 && activePlayer.equals("Player 1"))
+		{
+			AITurn();
+		}
+		else if (computerPlayer == -1 && activePlayer.equals("Player 2"))
+		{
+			AITurn();
+		}
 	}
 	
 	public static void main(String[] args) 
