@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
 
 public class Game extends JFrame
 {
-	final int WIDTH = 1000;
-	final int HEIGHT = 1000;
+	final int WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().width / 3);
+	final int HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().height / 2);
 	
 	JButton b1 = new JButton();
 	JButton b2 = new JButton();
@@ -38,6 +38,7 @@ public class Game extends JFrame
 	JTextArea settingsAI = new JTextArea("AI: Player 2");
 	
 	int computerPlayer = -1;
+	int AILevel = 1;
 	
 	boolean gamesOver = false;
 	
@@ -53,6 +54,7 @@ public class Game extends JFrame
 		setTitle("Tic Tac Toe");
 		addObjects();
 		addActions();
+		setVisible(true);
 	}
 	
 	public void addObjects()
@@ -117,8 +119,10 @@ public class Game extends JFrame
 	
 	public void buttonPress(JButton b, int index)
 	{
-		if (b.getText().equals("X") == false && b.getText().equals("O") == false)
+		//System.out.println("Processing turn for " + activePlayer + " accessing space #" + index);
+		if (b.getText().equals("X") == false && b.getText().equals("O") == false) //space must be unoccupied
 		{
+			//System.out.println("Space #" + index + " unoccupied for " + activePlayer);
 			if (activePlayer.equals("Player 1"))
 			{
 				b.setText("X");
@@ -152,18 +156,88 @@ public class Game extends JFrame
 		}
 	}
 	
-	public void AITurn()
+	public void AITurn(int level)
 	{
-		int randomSpace = (int) (Math.random() * 9); //random integer from 0 to 8
-		if (!buttons[randomSpace].getText().equals("X") && !buttons[randomSpace].getText().equals("O")) //space is unoccupied
+		switch (level)
 		{
-			buttonPress(buttons[randomSpace], randomSpace);
-		}
-		else
-		{
-			AITurn();
+		case 3:
+			//System.out.println("Made it into case 3");
+			if (Math.abs(values[0] + values[3] + values[6]) == 2)
+			{
+				buttonPress(buttons[0], 0);
+				buttonPress(buttons[3], 3);
+				buttonPress(buttons[6], 6);
+				break;
+			}
+			else if (Math.abs(values[0] + values[1] + values[2]) == 2) //checks to see unfilled but unbalanced line
+			{
+				buttonPress(buttons[0], 0);
+				buttonPress(buttons[1], 1);
+				buttonPress(buttons[2], 2);
+				break;
+			}
+			else if (Math.abs(values[0] + values[4] + values[8]) == 2)
+			{
+				buttonPress(buttons[0], 0);
+				buttonPress(buttons[4], 4);
+				buttonPress(buttons[8], 8);
+				break;
+			}
+			else if (Math.abs(values[1] + values[4] + values[7]) == 2)
+			{
+				buttonPress(buttons[1], 1);
+				buttonPress(buttons[4], 4);
+				buttonPress(buttons[7], 7);
+				break;
+			}
+			else if (Math.abs(values[3] + values[4] + values[5]) == 2)
+			{
+				buttonPress(buttons[4], 4);
+				buttonPress(buttons[3], 3);
+				buttonPress(buttons[5], 5);
+				break;
+			}
+			else if (Math.abs(values[2] + values[4] + values[6]) == 2)
+			{
+				buttonPress(buttons[2], 2);
+				buttonPress(buttons[4], 4);
+				buttonPress(buttons[6], 6);
+				break;
+			}
+			else if (Math.abs(values[6] + values[7] + values[8]) == 2)
+			{
+				buttonPress(buttons[8], 8);
+				buttonPress(buttons[7], 7);
+				buttonPress(buttons[6], 6);
+				break;
+			}
+			else if (Math.abs(values[2] + values[5] + values[8]) == 2)
+			{
+				buttonPress(buttons[2], 2);
+				buttonPress(buttons[5], 5);
+				buttonPress(buttons[8], 8);
+				break;
+			}
+			else
+			{
+				AITurn(1);
+				break;
+			}
+		case 1:
+			int randomSpace = (int) (Math.random() * 9); //random integer from 0 to 8
+			if (!buttons[randomSpace].getText().equals("X") && !buttons[randomSpace].getText().equals("O")) //space is unoccupied
+			{
+				buttonPress(buttons[randomSpace], randomSpace);
+				break;
+			}
+			else
+			{
+				AITurn(1);
+				break;
+			}
 		}
 	}
+	
 	
 	public void drop(int h, int w, int[] pt, boolean visible, JComponent comp)
 	{
@@ -244,6 +318,7 @@ public class Game extends JFrame
 			activePlayer = "Player 1";
 			turn.setText("Current Player: " + activePlayer);
 		}
+		winner.setText("No winners yet...");
 		gamesOver = false;
 		restart.setVisible(false);
 		checkAITurn();
@@ -258,36 +333,38 @@ public class Game extends JFrame
 		{
 			AISet = "off";
 		}
-		else if (computerPlayer == 1)
+		else if (computerPlayer > 1)
 		{
+			AILevel = Math.abs(computerPlayer);
 			AISet = "Player 1";
 		}
 		else
 		{
+			AILevel = Math.abs(computerPlayer);
 			AISet = "Player 2";
 		}
-		settingsAI.setText("AI: " + AISet);
+		settingsAI.setText("AI: " + AISet + " level " + Math.abs(computerPlayer));
 		checkAITurn();
 	}
 	
 	public void checkAITurn()
 	{
-		if (computerPlayer == 1 && activePlayer.equals("Player 1"))
+		if (computerPlayer > 0 && activePlayer.equals("Player 1"))
 		{
-			AITurn();
+			AITurn(AILevel);
 		}
-		else if (computerPlayer == -1 && activePlayer.equals("Player 2"))
+		else if (computerPlayer < 0 && activePlayer.equals("Player 2"))
 		{
-			AITurn();
+			AITurn(AILevel);
 		}
 	}
 	
 	public static void main(String[] args) 
 	{
-		EventQueue.invokeLater(() -> {
-			Game go = new Game();
-			go.setVisible(true);
-		});
+//		EventQueue.invokeLater(() -> {
+//			Game go = new Game();
+//			go.setVisible(true);
+//		});
 	}
 
 }
