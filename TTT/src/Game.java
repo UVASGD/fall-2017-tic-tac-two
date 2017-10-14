@@ -155,14 +155,12 @@ public class Game extends JFrame
 	public void AITurn()
 	{
 		int randomSpace = (int) (Math.random() * 9); //random integer from 0 to 8
-		if (!buttons[randomSpace].getText().equals("X") && !buttons[randomSpace].getText().equals("O")) //space is unoccupied
-		{
-			buttonPress(buttons[randomSpace], randomSpace);
+		
+		while(buttons[randomSpace].getText().equals("X") || buttons[randomSpace].getText().equals("O")){
+			randomSpace = (int) (Math.random() * 9);
 		}
-		else
-		{
-			AITurn();
-		}
+		
+		buttonPress(buttons[randomSpace], randomSpace);
 	}
 	
 	public void drop(int h, int w, int[] pt, boolean visible, JComponent comp)
