@@ -37,6 +37,7 @@ public class Game extends JFrame
 	JTextArea winner = new JTextArea();
 	JTextArea settingsAI = new JTextArea("AI: Player 2");
 	
+	int AILevel = 2;
 	int computerPlayer = -1;
 	
 	boolean gamesOver = false;
@@ -155,12 +156,22 @@ public class Game extends JFrame
 	public void AITurn()
 	{
 		int randomSpace = (int) (Math.random() * 9); //random integer from 0 to 8
-		
-		while(buttons[randomSpace].getText().equals("X") || buttons[randomSpace].getText().equals("O")){
-			randomSpace = (int) (Math.random() * 9);
+		switch(AILevel){
+			case 1: 
+				while(buttons[randomSpace].getText().equals("X") || buttons[randomSpace].getText().equals("O")){
+					randomSpace = (int) (Math.random() * 9);
+				}
+				buttonPress(buttons[randomSpace], randomSpace);
+				break;
+			case 2:
+				if(!checkSpots()){
+					while(buttons[randomSpace].getText().equals("X") || buttons[randomSpace].getText().equals("O")){
+						randomSpace = (int) (Math.random() * 9);
+					}
+					buttonPress(buttons[randomSpace], randomSpace);
+				}
+				break;
 		}
-		
-		buttonPress(buttons[randomSpace], randomSpace);
 	}
 	
 	public void drop(int h, int w, int[] pt, boolean visible, JComponent comp)
@@ -278,6 +289,90 @@ public class Game extends JFrame
 		{
 			AITurn();
 		}
+	}
+	
+	//checks the outer combinations of two values next to each other
+	//if space found set space to 'O' and return true
+	//***AI SHOULD CHECK TO SEE IF IT CAN WIN FIRST BEFORE STOPPING THE PLAYER***//
+	//***EVERTHING IS CHECKING IN COUNTERCLOCKWISE ORDER CHANGE THIS***//
+	private boolean checkSpots(){
+		//checks with top left corner
+		if(Math.abs(values[0] + values[1]) == 2 && !buttons[2].getText().equals("X") && !buttons[2].getText().equals("O")){
+			buttonPress(buttons[2], 2);
+			return true;
+		}
+		if(Math.abs(values[0] + values[4]) == 2 && !buttons[8].getText().equals("X") && !buttons[8].getText().equals("O")){
+			buttonPress(buttons[8], 8);
+			return true;
+		}
+		if(Math.abs(values[0] + values[3]) == 2 && !buttons[6].getText().equals("X") && !buttons[6].getText().equals("O")){
+			buttonPress(buttons[6], 6);
+			return true;
+		}
+		
+		//checks with bottom left corner
+		if(Math.abs(values[6] + values[3]) == 2 && !buttons[0].getText().equals("X") && !buttons[0].getText().equals("O")){
+			buttonPress(buttons[0], 0);
+			return true;
+		}
+		if(Math.abs(values[6] + values[4]) == 2 && !buttons[2].getText().equals("X") && !buttons[2].getText().equals("O")){
+			buttonPress(buttons[2], 2);
+			return true;
+		}
+		if(Math.abs(values[6] + values[7]) == 2 && !buttons[8].getText().equals("X") && !buttons[8].getText().equals("O")){
+			buttonPress(buttons[8], 8);
+			return true;
+		}
+		
+		//checks with bottom right corner
+		if(Math.abs(values[8] + values[7]) == 2 && !buttons[6].getText().equals("X") && !buttons[6].getText().equals("O")){
+			buttonPress(buttons[6], 6);
+			return true;
+		}
+		if(Math.abs(values[8] + values[4]) == 2 && !buttons[0].getText().equals("X") && !buttons[0].getText().equals("O")){
+			buttonPress(buttons[0], 0);
+			return true;
+		}
+		if(Math.abs(values[8] + values[5]) == 2 && !buttons[2].getText().equals("X") && !buttons[2].getText().equals("O")){
+			buttonPress(buttons[2], 2);
+			return true;
+		}
+		
+		//checks with top right corner
+		if(Math.abs(values[2] + values[1]) == 2 && !buttons[0].getText().equals("X") && !buttons[0].getText().equals("O")){
+			buttonPress(buttons[0], 0);
+			return true;
+		}
+		if(Math.abs(values[2] + values[4]) == 2 && !buttons[6].getText().equals("X") && !buttons[6].getText().equals("O")){
+			buttonPress(buttons[6], 6);
+			return true;
+		}
+		if(Math.abs(values[2] + values[5]) == 2 && !buttons[8].getText().equals("X") && !buttons[8].getText().equals("O")){
+			buttonPress(buttons[8], 8);
+			return true;
+		}
+		
+		//checks middle horizontal
+		if(Math.abs(values[3] + values[4]) == 2 && !buttons[5].getText().equals("X") && !buttons[5].getText().equals("O")){
+			buttonPress(buttons[5], 5);
+			return true;
+		}
+		if(Math.abs(values[5] + values[4]) == 2 && !buttons[3].getText().equals("X") && !buttons[3].getText().equals("O")){
+			buttonPress(buttons[3], 3);
+			return true;
+		}
+		
+		//checks middle vertical
+		if(Math.abs(values[1] + values[4]) == 2 && !buttons[7].getText().equals("X") && !buttons[7].getText().equals("O")){
+			buttonPress(buttons[7], 7);
+			return true;
+		}
+		if(Math.abs(values[7] + values[4]) == 2 && !buttons[1].getText().equals("X") && !buttons[1].getText().equals("O")){
+			buttonPress(buttons[1], 1);
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public static void main(String[] args) 
