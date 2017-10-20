@@ -61,22 +61,24 @@ public class Game extends JFrame
 	{
 		for (int i = 0; i < buttons.length; i++)
 		{
-			drop(100, 100, locations[i], true, buttons[i]);
-			drop(100, 100, locations[i], false, texts[i]);
+			drop(WIDTH/12, HEIGHT/10, locations[i], true, buttons[i]);
+			drop(WIDTH/12, HEIGHT/10, locations[i], false, texts[i]);
 			texts[i].setEditable(false);
 			texts[i].setBackground(Color.WHITE);
 		}
-		drop(75, 300, locations[9], true, turn);
+		drop(WIDTH/16, 3*HEIGHT/10, locations[9], true, turn);
 		turn.setEditable(false);
+		turn.setBackground(this.getBackground());
 		turn.setText("Current Player: " + activePlayer);
-		drop(75, 300, locations[10], true, winner);
+		drop(WIDTH/16, 3*HEIGHT/10, locations[10], true, winner);
 		winner.setEditable(false);
+		winner.setBackground(this.getBackground());
 		winner.setText("No winner yet!");
-		drop(75, 75, locations[11], false, restart);
-		drop(75, 100, locations[12], true, btnAI);
-		drop(75, 125, locations[13], true, settingsAI);
+		drop(WIDTH/16, 3*HEIGHT/40, locations[11], false, restart);
+		drop(WIDTH/16, HEIGHT/10, locations[12], true, btnAI);
+		drop(WIDTH/16, HEIGHT/8, locations[13], true, settingsAI);
 		
-		JLabel l = new JLabel(); //for some reason, adding a stupid label makes it all come together.
+		JLabel l = new JLabel(/*WIDTH + " " + HEIGHT*/); //for some reason, adding a stupid label makes it all come together.
 		add(l);
 	}
 	
@@ -326,7 +328,7 @@ public class Game extends JFrame
 	
 	public void setAI()
 	{
-		String input = JOptionPane.showInputDialog("How should the AI be set?\n0: No AI\n-1: AI is Player 2\n1: AI is Player 1");
+		String input = JOptionPane.showInputDialog("How should the AI be set?\n0: No AI\n1: AI Level 1\n2: AI Level 2\n3: AI Level 3\nA negative value makes the AI Player 2.");
 		computerPlayer = Integer.parseInt(input);
 		String AISet = "";
 		if (computerPlayer == 0)
