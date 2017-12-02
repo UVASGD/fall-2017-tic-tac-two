@@ -225,6 +225,92 @@ public class Game extends JFrame
 				AITurn(1);
 				break;
 			}
+		case 2:
+			if (Math.abs(values[0] + values[1]) == 2)
+			{
+				buttonPress(buttons[3], 3);
+				break;
+			}
+			else if (Math.abs(values[0] + values[3]) == 2)
+			{
+				buttonPress(buttons[6], 6);
+				break;
+			}
+			else if (Math.abs(values[0] + values[4]) == 2)
+			{
+				buttonPress(buttons[8], 8);
+				break;
+			}
+			else if (Math.abs(values[2] + values[1]) == 2)
+			{
+				buttonPress(buttons[0], 0);
+				break;
+			}
+			else if (Math.abs(values[2] + values[5]) == 2)
+			{
+				buttonPress(buttons[8], 8);
+				break;
+			}
+			else if (Math.abs(values[2] + values[4]) == 2)
+			{
+				buttonPress(buttons[6], 6);
+				break;
+			}
+			else if (Math.abs(values[6] + values[3]) == 2)
+			{
+				buttonPress(buttons[0], 0);
+				break;
+			}
+			else if (Math.abs(values[6] + values[4]) == 2)
+			{
+				buttonPress(buttons[2], 2);
+				break;
+			}
+			else if (Math.abs(values[6] + values[7]) == 2)
+			{
+				buttonPress(buttons[8], 8);
+				break;
+			}
+			else if (Math.abs(values[8] + values[7]) == 2)
+			{
+				buttonPress(buttons[6], 6);
+				break;
+			}
+			else if (Math.abs(values[8] + values[5]) == 2)
+			{
+				buttonPress(buttons[2], 2);
+				break;
+			}
+			else if (Math.abs(values[8] + values[4]) == 2)
+			{
+				buttonPress(buttons[0], 0);
+				break;
+			}
+			else if (Math.abs(values[1] + values[4]) == 2)
+			{
+				buttonPress(buttons[7], 7);
+				break;
+			}
+			else if (Math.abs(values[4] + values[7]) == 2)
+			{
+				buttonPress(buttons[1], 1);
+				break;
+			}
+			else if (Math.abs(values[3] + values[4]) == 2)
+			{
+				buttonPress(buttons[5], 5);
+				break;
+			}
+			else if (Math.abs(values[4] + values[5]) == 2)
+			{
+				buttonPress(buttons[3], 3);
+				break;
+			}
+			else
+			{
+				AITurn(1);
+				break;
+			}
 		case 1:
 			int randomSpace = (int) (Math.random() * 9); //random integer from 0 to 8
 			if (!buttons[randomSpace].getText().equals("X") && !buttons[randomSpace].getText().equals("O")) //space is unoccupied
