@@ -48,6 +48,7 @@ public class TTTHub extends JFrame{
 			ogGames[i].setLocation(locations[i][0], locations[i][1] + HEIGHT/20);
 			add(ogGames[i]);
 		}
+		ogGames[8].setText("Credits");
 		addActions();
 		
 		quit = new JButton("QUIT");
@@ -74,23 +75,26 @@ public class TTTHub extends JFrame{
 		setVisible(true);
 	}
 	
-	
-	
 	public void addActions()
 	{
 		ogGames[0].addActionListener((ActionEvent event) -> {
 			new Game();
 		});
+		ogGames[1].addActionListener((ActionEvent event) -> {
+			new ModifiableTTT();
+		});
 		//WHEN YOU INSTALL A NEW GAME, ADD AN ACTIONLISTENER TO THE APPROPRIATE BUTTON THAT CONSTRUCTS THE GAME.
 		//ADDITIONALLY, MAKE SURE THE BUTTON TO START THE GAME ISN'T SET TO BE INVISIBLE
-		ogGames[1].setVisible(false);
 		ogGames[2].setVisible(false);
 		ogGames[3].setVisible(false);
 		ogGames[4].setVisible(false);
 		ogGames[5].setVisible(false);
 		ogGames[6].setVisible(false);
 		ogGames[7].setVisible(false);
-		ogGames[8].setVisible(false);
+		
+		ogGames[8].addActionListener((ActionEvent event) -> {
+			new Credits();
+		});
 		
 	}
 }
