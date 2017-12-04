@@ -23,6 +23,7 @@ public class Credits extends JFrame
 		data.add("Contributors:");
 		
 		data.add("Jimmy Patterson, <<GAME DIRECTOR>>");
+		data.add("Alexander Kwakye");
 		
 		String[] contents = new String[data.size()];
 		
