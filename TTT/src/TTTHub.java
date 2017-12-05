@@ -28,7 +28,6 @@ public class TTTHub extends JFrame{
 	final int HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().height / 2);
 	
 	int[][] locations = {{WIDTH/12, HEIGHT/10}, {3*WIDTH/12, HEIGHT/10}, {5*WIDTH/12, HEIGHT/10}, {WIDTH/12, 3*HEIGHT/10}, {3*WIDTH/12, 3*HEIGHT/10}, {5*WIDTH/12, 3*HEIGHT/10}, {WIDTH/12, 5*HEIGHT/10}, {3*WIDTH/12, 5*HEIGHT/10}, {5*WIDTH/12, 5*HEIGHT/10}};
-	String[] titles = {"The available games are as follows:", "Game 1: Smart Tic Tac Toe", "Game 2:", "Game 3:", "Game 4:", "Game 5:", "Game 6:", "Game 7:", "Game 8:", "Game 9:"};
 	
 	public static void main(String[] args) 
 	{
@@ -41,6 +40,7 @@ public class TTTHub extends JFrame{
 		setSize(WIDTH, HEIGHT);
 		setTitle("Tic Tac Two");
 		
+		
 		for (int i = 0; i < ogGames.length; i++)
 		{
 			ogGames[i] = new JButton("Game " + (i + 1));
@@ -48,6 +48,9 @@ public class TTTHub extends JFrame{
 			ogGames[i].setLocation(locations[i][0], locations[i][1] + HEIGHT/20);
 			add(ogGames[i]);
 		}
+		
+		ogGames[0].setText("Original");
+		ogGames[1].setText("Modifiable");
 		ogGames[8].setText("Credits");
 		addActions();
 		
@@ -64,12 +67,6 @@ public class TTTHub extends JFrame{
 		welcome.setSize(WIDTH/4, HEIGHT/15);
 		welcome.setFont(new Font("Times", Font.BOLD, 20));
 		add(welcome);
-		
-		gamesList = new JList<String>(titles);
-		gamesList.setLocation(7*WIDTH/12, HEIGHT/10);
-		gamesList.setSize(3*WIDTH/14, HEIGHT/3);
-		gamesList.setBackground(this.getBackground());
-		add(gamesList);
 		
 		add(new JLabel());
 		setVisible(true);
