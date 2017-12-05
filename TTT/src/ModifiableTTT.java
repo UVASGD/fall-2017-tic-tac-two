@@ -16,10 +16,10 @@ public class ModifiableTTT extends JFrame
 	final int WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().width / 3);
 	final int HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().height / 2);
 	
-	//activePlayer is always either "X" or "O"
-	String activePlayer;
-	//playerIndex is always either -1 or 1
+	//playerIndex increases
 	int playerIndex;
+	int players;
+	Color[] colors = {Color.BLUE, Color.RED, Color.YELLOW, Color.GREEN, Color.ORANGE, Color.PINK, Color.CYAN, Color.GRAY};
 	JLabel player;
 	JLabel gameInfo;
 	
@@ -27,16 +27,20 @@ public class ModifiableTTT extends JFrame
 	JButton[][] buttons;
 	int[][] locations;
 	int[][] sizes;
+	JButton reset;
 	
 	int winner;
 	boolean winning;
 	int longest;
+	int counter;
 	
 	public ModifiableTTT()
 	{
 		setSize(WIDTH, HEIGHT);
 		setTitle("Mod TTT");
 		dimension = Integer.parseInt(JOptionPane.showInputDialog("What's the width of the grid? ENTER a number."));
+		players = Integer.parseInt(JOptionPane.showInputDialog("How many players? ENTER a number between 1 and 8."));
+		
 		setLayout(null);
 		
 		winning = false;
@@ -45,12 +49,12 @@ public class ModifiableTTT extends JFrame
 		{
 			winner = (int)(dimension * (0.75));
 		}
+		counter = 0;
 		
 		locations = new int[dimension*dimension][2];
 		sizes = new int[dimension*dimension][2];
 		buttons = new JButton[dimension][dimension];
 		values = new int[dimension][dimension];
-		activePlayer = "X";
 		playerIndex = 1;
 		
 		//add buffers
@@ -94,11 +98,16 @@ public class ModifiableTTT extends JFrame
 		}
 		
 		//put the rest of the UI on the board
-		player = new JLabel("Active player: " + activePlayer);
+		player = new JLabel("Active player: Player " + playerIndex);
 		drop(new int[]{rightedge, topedge}, new int[]{(int)(rightbuffer * 0.75), (int)(vertsubsection * 0.75)}, true, player);
 		gameInfo = new JLabel();
 		updateGameInfo(0);
 		drop(new int[]{rightedge, topedge + vertsubsection}, new int[]{(int)(rightbuffer * 0.75), (int)(vertsubsection * 5 + vertsubsection * 0.75)}, true, gameInfo);
+		reset = new JButton("Return to menu");
+		drop(new int[]{rightedge,  vertsubsection - topedge}, new int[]{(int)(rightbuffer * 0.75), (int)(topedge*0.75)}, false, reset);
+		reset.addActionListener((ActionEvent event) -> {
+			returnToMenu();
+		});
 		
 		add(new JLabel());
 		setVisible(true);
@@ -131,18 +140,13 @@ public class ModifiableTTT extends JFrame
 	{
 		JButton activated = buttons[coords[0]][coords[1]];
 		
+		counter++;
+		
 		//is the space unoccupied?
 		if (Math.abs(values[coords[0]][coords[1]]) == 0) 
 		{
 			//good for you, here's your activation notice
-			if (activePlayer.equals("X"))
-			{
-				activated.setBackground(Color.CYAN);
-			}
-			else
-			{
-				activated.setBackground(Color.MAGENTA);
-			}
+			activated.setBackground(colors[playerIndex - 1]);
 			//activated.setText(activePlayer);
 			values[coords[0]][coords[1]] = playerIndex;
 
@@ -150,21 +154,19 @@ public class ModifiableTTT extends JFrame
 			
 			if (winning)
 			{
-				JOptionPane.showMessageDialog(null, activePlayer + " has won!");
+				JOptionPane.showMessageDialog(null, "Player " + playerIndex + " has won!");
 				reset();
 			}
 			
 			//now change turns
-			playerIndex = playerIndex * -1;
-			if (activePlayer.equals("X"))
-			{
-				activePlayer = "O";
-			}
-			else
-			{
-				activePlayer = "X";
-			}	
-			player.setText("Active Player: " + activePlayer);
+			playerIndex = (playerIndex % players) + 1;
+			player.setText("Active Player: Player " + playerIndex);
+		}
+		
+		if (counter == dimension*dimension)
+		{
+			JOptionPane.showMessageDialog(null, "It's a cat game.");
+			reset();
 		}
 	}
 	
@@ -217,7 +219,7 @@ public class ModifiableTTT extends JFrame
 			{
 
 				System.out.println("Doing the bottom right comparison at [" + width + "][" + height + "]");
-				streak = Integer.max(Integer.max(checkWin(width, height, 0, 6), checkWin(width, height, 0, 7)), checkWin(width, height, 0, 8));
+				streak = Integer.max(Integer.max(checkWin(width, height, 0, 6), checkWin(width, height, 0, 7)), checkWin(width, height, 0, 0));
 			}
 			else if (t) //make sure we hit the easy-to-satisfy cases last
 			{
@@ -259,6 +261,7 @@ public class ModifiableTTT extends JFrame
 		{
 			winning = true;
 		}
+		updateGameInfo(streak + 1);
 	}
 	
 	/* DIRECTION INDEX:
@@ -394,6 +397,7 @@ public class ModifiableTTT extends JFrame
 				buttons[i][j].setBackground(Color.WHITE);
 			}
 		}
+		reset.setVisible(true);
 	}
 	
 	public void updateGameInfo(int longest)
@@ -403,6 +407,11 @@ public class ModifiableTTT extends JFrame
 		info += "Score to win: " + winner + " in a row.<br/>";
 		info += "Longest current line: " + longest + " spaces.";
 		gameInfo.setText("<html>" + info + "<html>");
+	}
+	
+	public void returnToMenu()
+	{
+		dispose();
 	}
 }
 
