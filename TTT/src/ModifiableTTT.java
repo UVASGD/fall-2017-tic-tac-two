@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,8 @@ public class ModifiableTTT extends JFrame
 	
 	final int WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().width / 3);
 	final int HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().height / 2);
+	
+	Font bigfont = new Font("Arial", Font.PLAIN, 20);
 	
 	//playerIndex increases
 	int playerIndex;
@@ -38,9 +41,16 @@ public class ModifiableTTT extends JFrame
 	{
 		setSize(WIDTH, HEIGHT);
 		setTitle("Mod TTT");
-		dimension = Integer.parseInt(JOptionPane.showInputDialog("What's the width of the grid? ENTER a number."));
-		players = Integer.parseInt(JOptionPane.showInputDialog("How many players? ENTER a number between 1 and 8."));
-		
+		if (WIDTH * 3 > 1000)
+		{
+			dimension = Integer.parseInt(JOptionPane.showInputDialog("<html><font face='Arial' size=20>What's the width of the grid? ENTER a number."));
+			players = Integer.parseInt(JOptionPane.showInputDialog("<html><font face='Arial' size=20>How many players? ENTER a number between 1 and 8."));
+		}
+		else
+		{
+			dimension = Integer.parseInt(JOptionPane.showInputDialog("What's the width of the grid? ENTER a number."));
+			players = Integer.parseInt(JOptionPane.showInputDialog("How many players? ENTER a number between 1 and 8."));
+		}
 		setLayout(null);
 		
 		winning = false;
@@ -118,6 +128,12 @@ public class ModifiableTTT extends JFrame
 		thing.setSize(size[0], size[1]);
 		thing.setLocation(pos[0], pos[1]);
 		thing.setVisible(visibility);
+
+		if (WIDTH*3 > 1600)
+		{
+			thing.setFont(bigfont);
+		}
+		
 		add(thing);
 	}
 	
@@ -132,6 +148,7 @@ public class ModifiableTTT extends JFrame
 		thing.addActionListener((ActionEvent event)->{
 			buttonPress(coords);
 		});
+		
 		
 		add(thing);
 	}

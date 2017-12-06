@@ -149,7 +149,7 @@ public class BBB extends JFrame
 			buttonPress(coords);
 		});
 		
-		if (WIDTH*3 > 1000)
+		if (WIDTH*3 > 1600)
 		{
 			thing.setFont(bigfont);
 		}

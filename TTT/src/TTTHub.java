@@ -46,7 +46,7 @@ public class TTTHub extends JFrame{
 		for (int i = 0; i < ogGames.length; i++)
 		{
 			ogGames[i] = new JButton("Game " + (i + 1));
-			if (WIDTH * 3 > 1000)
+			if (WIDTH * 3 > 1600)
 				ogGames[i].setFont(bigfont);
 			ogGames[i].setSize(2*WIDTH/14, 2*HEIGHT/12);
 			ogGames[i].setLocation(locations[i][0], locations[i][1] + HEIGHT/20);
@@ -68,7 +68,7 @@ public class TTTHub extends JFrame{
 		quit.setLocation(8*WIDTH/10, 8*HEIGHT/10);
 		quit.setSize(WIDTH/10, HEIGHT/12);
 		add(quit);
-		if (WIDTH * 3 > 1000)
+		if (WIDTH * 3 > 1600)
 			quit.setFont(bigfont);
 		welcome = new JLabel("Welcome to Tic Tac Two!");
 		welcome.setLocation(WIDTH/20, HEIGHT/22);
