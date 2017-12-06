@@ -23,15 +23,10 @@ public class Credits extends JFrame
 		data.add("Contributors:");
 
 		data.add("Jimmy Patterson, <<GAME DIRECTOR>>");
-<<<<<<< HEAD
 		data.add("David Hall, Designer");
 		data.add("Jackson Ekis, Moana (TM) Fanatic");
-		
-=======
 		data.add("Alexander Kwakye");
-		data.add("Jack Herd, <<CHARISMATIC LEADER>>")
-
->>>>>>> origin/master
+		data.add("Jack Herd, <<CHARISMATIC LEADER>>");
 		String[] contents = new String[data.size()];
 
 		for (int i = 0; i < contents.length; i++)
