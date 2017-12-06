@@ -28,21 +28,21 @@ public class TTTHub extends JFrame{
 	
 	final int WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().width / 3);
 	final int HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().height / 2);
-	
+
 	int[][] locations = {{WIDTH/12, HEIGHT/10}, {3*WIDTH/12, HEIGHT/10}, {5*WIDTH/12, HEIGHT/10}, {WIDTH/12, 3*HEIGHT/10}, {3*WIDTH/12, 3*HEIGHT/10}, {5*WIDTH/12, 3*HEIGHT/10}, {WIDTH/12, 5*HEIGHT/10}, {3*WIDTH/12, 5*HEIGHT/10}, {5*WIDTH/12, 5*HEIGHT/10}};
-	
-	public static void main(String[] args) 
+
+	public static void main(String[] args)
 	{
 		new TTTHub();
 	}
-	
+
 	public TTTHub()
 	{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(WIDTH, HEIGHT);
 		setTitle("Tic Tac Two");
-		
-		
+
+
 		for (int i = 0; i < ogGames.length; i++)
 		{
 			ogGames[i] = new JButton("Game " + (i + 1));
@@ -52,13 +52,17 @@ public class TTTHub extends JFrame{
 			ogGames[i].setLocation(locations[i][0], locations[i][1] + HEIGHT/20);
 			add(ogGames[i]);
 		}
-		
+
 		ogGames[0].setText("Original");
 		ogGames[1].setText("Modifiable");
+<<<<<<< HEAD
 		ogGames[3].setText("<html>Big Bag Boe");
+=======
+		ogGames[2].setText("NDTTT");
+>>>>>>> origin/master
 		ogGames[8].setText("Credits");
 		addActions();
-		
+
 		quit = new JButton("QUIT");
 		quit.addActionListener((ActionEvent event) -> {
 			System.exit(0);
@@ -66,19 +70,23 @@ public class TTTHub extends JFrame{
 		quit.setLocation(8*WIDTH/10, 8*HEIGHT/10);
 		quit.setSize(WIDTH/10, HEIGHT/12);
 		add(quit);
+<<<<<<< HEAD
 		if (WIDTH * 3 > 1000)
 			quit.setFont(bigfont);
 		
+=======
+
+>>>>>>> origin/master
 		welcome = new JLabel("Welcome to Tic Tac Two!");
 		welcome.setLocation(WIDTH/20, HEIGHT/22);
 		welcome.setSize(WIDTH/2, HEIGHT/15);
 		welcome.setFont(new Font("Times", Font.BOLD, 40));
 		add(welcome);
-		
+
 		add(new JLabel());
 		setVisible(true);
 	}
-	
+
 	public void addActions()
 	{
 		ogGames[0].addActionListener((ActionEvent event) -> {
@@ -92,14 +100,21 @@ public class TTTHub extends JFrame{
 		});
 		//WHEN YOU INSTALL A NEW GAME, ADD AN ACTIONLISTENER TO THE APPROPRIATE BUTTON THAT CONSTRUCTS THE GAME.
 		//ADDITIONALLY, MAKE SURE THE BUTTON TO START THE GAME ISN'T SET TO BE INVISIBLE
+<<<<<<< HEAD
+=======
+		ogGames[2].addActionListener((ActionEvent event) -> {
+			new NDTTT();
+		});
+		ogGames[3].setVisible(false);
+>>>>>>> origin/master
 		ogGames[4].setVisible(false);
 		ogGames[5].setVisible(false);
 		ogGames[6].setVisible(false);
 		ogGames[7].setVisible(false);
-		
+
 		ogGames[8].addActionListener((ActionEvent event) -> {
 			new Credits();
 		});
-		
+
 	}
 }
