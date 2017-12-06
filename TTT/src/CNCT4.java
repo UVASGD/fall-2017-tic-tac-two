@@ -107,7 +107,7 @@ public class CNCT4 extends JFrame
 			
 			if (winning)
 			{
-				System.out.println("Player " + playerIndex + " has won!");
+				JOptionPane.showMessageDialog(null, "<html><font face='Arial' size = 15>Player " + playerIndex + " has won!");
 				reset();
 			}
 		}
