@@ -23,7 +23,9 @@ public class TTTHub extends JFrame{
 	JButton quit;
 	JList<String> gamesList;
 	JLabel welcome;
-
+	
+	Font bigfont = new Font("Times", Font.PLAIN, 30);
+	
 	final int WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().width / 3);
 	final int HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().height / 2);
 	
@@ -44,6 +46,8 @@ public class TTTHub extends JFrame{
 		for (int i = 0; i < ogGames.length; i++)
 		{
 			ogGames[i] = new JButton("Game " + (i + 1));
+			if (WIDTH * 3 > 1000)
+				ogGames[i].setFont(bigfont);
 			ogGames[i].setSize(2*WIDTH/14, 2*HEIGHT/12);
 			ogGames[i].setLocation(locations[i][0], locations[i][1] + HEIGHT/20);
 			add(ogGames[i]);
@@ -51,6 +55,7 @@ public class TTTHub extends JFrame{
 		
 		ogGames[0].setText("Original");
 		ogGames[1].setText("Modifiable");
+		ogGames[3].setText("<html>Big Bag Boe");
 		ogGames[8].setText("Credits");
 		addActions();
 		
@@ -61,11 +66,13 @@ public class TTTHub extends JFrame{
 		quit.setLocation(8*WIDTH/10, 8*HEIGHT/10);
 		quit.setSize(WIDTH/10, HEIGHT/12);
 		add(quit);
+		if (WIDTH * 3 > 1000)
+			quit.setFont(bigfont);
 		
 		welcome = new JLabel("Welcome to Tic Tac Two!");
 		welcome.setLocation(WIDTH/20, HEIGHT/22);
-		welcome.setSize(WIDTH/4, HEIGHT/15);
-		welcome.setFont(new Font("Times", Font.BOLD, 20));
+		welcome.setSize(WIDTH/2, HEIGHT/15);
+		welcome.setFont(new Font("Times", Font.BOLD, 40));
 		add(welcome);
 		
 		add(new JLabel());
@@ -80,10 +87,11 @@ public class TTTHub extends JFrame{
 		ogGames[1].addActionListener((ActionEvent event) -> {
 			new ModifiableTTT();
 		});
+		ogGames[3].addActionListener((ActionEvent event) -> {
+			new BBB();
+		});
 		//WHEN YOU INSTALL A NEW GAME, ADD AN ACTIONLISTENER TO THE APPROPRIATE BUTTON THAT CONSTRUCTS THE GAME.
 		//ADDITIONALLY, MAKE SURE THE BUTTON TO START THE GAME ISN'T SET TO BE INVISIBLE
-		ogGames[2].setVisible(false);
-		ogGames[3].setVisible(false);
 		ogGames[4].setVisible(false);
 		ogGames[5].setVisible(false);
 		ogGames[6].setVisible(false);
