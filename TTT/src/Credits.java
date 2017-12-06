@@ -45,7 +45,7 @@ public class Credits extends JFrame
 
 		contributors.setSize(9*WIDTH/10, 6*HEIGHT/10);
 		contributors.setLocation(10, 10);
-		if (WIDTH * 3 > 1600)
+		if (WIDTH * 3 > 3200)
 			contributors.setFont(bigfont);
 		
 		add(contributors);
@@ -57,7 +57,7 @@ public class Credits extends JFrame
 		quit.setLocation(8*WIDTH/10, 8*HEIGHT/10);
 		quit.setSize(WIDTH/10, HEIGHT/12);
 		add(quit);
-		if (WIDTH * 3 > 1600)
+		if (WIDTH * 3 > 3200)
 			quit.setFont(bigfont);
 		
 		add(new JLabel(""));

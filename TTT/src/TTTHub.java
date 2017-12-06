@@ -68,7 +68,7 @@ public class TTTHub extends JFrame{
 		quit.setLocation(8*WIDTH/10, 8*HEIGHT/10);
 		quit.setSize(WIDTH/10, HEIGHT/12);
 		add(quit);
-		if (WIDTH * 3 > 1600)
+		if (WIDTH * 3 > 3200)
 			quit.setFont(bigfont);
 		welcome = new JLabel("Welcome to Tic Tac Two!");
 		welcome.setLocation(WIDTH/20, HEIGHT/22);

@@ -129,7 +129,7 @@ public class ModifiableTTT extends JFrame
 		thing.setLocation(pos[0], pos[1]);
 		thing.setVisible(visibility);
 
-		if (WIDTH*3 > 1600)
+		if (WIDTH*3 > 3200)
 		{
 			thing.setFont(bigfont);
 		}
